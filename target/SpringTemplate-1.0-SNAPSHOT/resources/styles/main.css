@@ -1,0 +1,127 @@
+body {
+    padding: 50px;
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+    color: #000;
+    font-size: 15px;
+    font-weight: 400;
+    min-height: 100vh;
+    background-image: url("/resources/images/cartographer.png");
+}
+.container {
+    width: 72vw;
+    margin: auto;
+}
+.title-row {
+    font-family: "Noto Serif", serif;
+    text-align: center;
+    color: #000000;
+    letter-spacing: 1px;
+    background: #fff;
+    font-size: 2em;
+    padding: 0;
+    width: 100%;
+    font-weight: 700;
+}
+.page-guts {
+    background: rgba(255,255,255,0.8);
+    padding: 10px;
+    min-height: 100px;
+}
+
+.menu {
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+.page-guts .menu a {
+    background: #F39C12;
+    padding: 5px;
+    margin: 1px;
+    color: white;
+    text-decoration: none;
+    height: inherit;
+}
+
+.item-holder {
+    display: flex;
+    flex-flow: row wrap;
+}
+.item-block {
+    background-color: white;
+    box-shadow: 5px 5px 5px #bbb;
+    padding: 5px;
+    width: 300px;
+    margin:10px 5px 5px;
+    float: top;
+    align-self: flex-start;
+}
+
+.warn-box {
+    background-color: #DC7633;
+    line-height: 120%;
+}
+
+.warn-holder {
+    padding: 5px;
+}
+
+.item-image {
+    height: 150px;
+    background-size: cover;
+    margin-bottom: 5px;
+}
+
+.item-name {
+    background: #F4D03F;
+    padding: 2px;
+    margin: 0 -9px;
+    text-align: center;
+    box-shadow: 2px 2px 5px #777;
+}
+
+.item-id {
+    color: #ccc;
+}
+
+.item-desc {
+    height: 150px;
+    overflow: auto;
+}
+
+.flav {
+    height: 5px;
+    display: inline-block;
+    width: 12vw;
+    margin: 0;
+}
+
+.flav-1 {
+    background-color: #DC7633;
+}
+.flav-2 {
+    background-color: #F39C12;
+}
+.flav-3 {
+    background-color: #F4D03F;
+}
+.flav-4 {
+    background-color: #27AE60;
+}
+.flav-5 {
+    background-color: #27AEA4;
+}
+.flav-6 {
+    background-color: #2775AE;
+}
+fieldset {
+    display: inline-block;
+    line-height: 22px;
+}
+fieldset input {
+    height: 21px;
+    min-width: 80%;
+    margin: 0;
+    border: 0;
+    margin-bottom: 1px;
+}

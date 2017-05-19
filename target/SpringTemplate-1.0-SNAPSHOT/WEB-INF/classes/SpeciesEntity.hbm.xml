@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.grandcircus.spring.models.SpeciesEntity" table="species" schema="coffeeshop">
+        <id name="speciesid">
+            <column name="speciesid" sql-type="int(11)"/>
+        </id>
+        <property name="speciesname">
+            <column name="speciesname" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="picturelink">
+            <column name="picturelink" sql-type="varchar(60)" length="60" not-null="true"/>
+        </property>
+        <property name="temps">
+            <column name="temps" sql-type="varchar(16)" length="16" />
+        </property>
+        <property name="humidity">
+            <column name="humidity" sql-type="varchar(16)" length="16"/>
+        </property>
+        <property name="diet">
+            <column name="diet" sql-type="text"/>
+        </property>
+        <property name="experiencelevel">
+            <column name="experiencelevel" sql-type="varchar(45)" length="45"/>
+        </property>
+        <property name="region">
+            <column name="region" sql-type="varchar(45)" length="45"/>
+        </property>
+        <property name="habitat">
+            <column name="habitat" sql-type="varchar(45)" length="45"/>
+        </property>
+        <property name="description">
+            <column name="description" sql-type="varchar(45)" length="45"/>
+        </property>
+    </class>
+</hibernate-mapping>
