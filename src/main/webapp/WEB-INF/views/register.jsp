@@ -29,9 +29,9 @@
                               onchange="checkName('lName', 'lNameWarn', 'Last name')" /><br />
             <div id="lNameWarn" class="warn-box"></div>
             Email: <input title="Email"
-                             id="email"
-                             type="email"
-                             name="email" onchange="checkEmail('email', 'emailWarn', 'Email')"><br />
+                          id="email"
+                          type="email"
+                          name="email" onchange="checkEmail('email', 'emailWarn', 'Email')"><br />
             <div id="emailWarn" class="warn-box"></div>
             Username: <input title="Username"
                              id="username"
@@ -44,63 +44,70 @@
                              name="firstPassword" onchange="checkPassword('firstPassword', 'firstPasswordWarn', 'Password')"><br />
             <div id="firstPasswordWarn" class="warn-box"></div>
             Confirm Password: <input title="Password"
-                             id="secondPassword"
-                             type="password"
-                             name="secondPassword" onchange="checkMatchingPassword('firstPassword', 'secondPassword', 'secondPasswordWarn', 'Passwords')"><br />
+                                     id="secondPassword"
+                                     type="password"
+                                     name="secondPassword" onchange="checkMatchingPassword('firstPassword', 'secondPassword', 'secondPasswordWarn', 'Passwords')"><br />
             <div id="secondPasswordWarn" class="warn-box"></div>
-            <input type="submit" name="Register" disabled />
+            <input type="submit" id="registerButton" name="Register" disabled />
         </form>
     </div>
 </div>
 <script>
+    document.emailIsGood = false;
+    document.usernameIsGood = false;
+    document.passwordIsGood = false;
+    document.confirmPasswordIsGood = false;
+
+    function enableButton() {
+
+        console.log("this happened!");
+
+        var submitButton = document.getElementById("registerButton");
+        if ((document.emailIsGood === true) &&
+            (document.usernameIsGood === true) &&
+            (document.passwordIsGood === true) &&
+            (document.confirmPasswordIsGood === true)) {
+            submitButton.disabled = false;
+        } else {
+            submitButton.disabled = true;
+            console.log(document.emailIsGood);
+            console.log(document.usernameIsGood);
+            console.log(document.passwordIsGood);
+            console.log(document.confirmPasswordIsGood);
+        }
+
+    }
+
     function checkName(nameId, warnId, fieldName){
 
         var namePattern = /[^a-zA-Z'-]/;
         var name = document.getElementById(nameId);
         var nameValue = name.value;
 
-        var warnBox = document.getElementById(warnId);
-        var warnHolder = document.createElement("div");
-        warnHolder.className = 'warn-holder';
-        var warning;
-
         if(nameValue.length < 2) {
-            warning = document.createTextNode(fieldName + " must be at least 2 characters long.");
-            name.value = '';
+            printWarning(name, warnId, fieldName + " must be at least 2 characters long.");
         } else if(nameValue.length > 30) {
-            warning = document.createTextNode(fieldName + " must be no more than 30 characters long.");
-            name.value = '';
+            printWarning(name, warnId, fieldName + " must be no more than 30 characters long.");
         } else if(namePattern.test(nameValue)) {
-            warning = document.createTextNode(fieldName + " cannot contain numbers or special characters.");
-            name.value = '';
+            printWarning(name, warnId, fieldName + " cannot contain numbers or special characters.");
         } else {
-            warning = '';
+            cleanWarning(warnId)
         }
-
-        warnBox.innerHTML = '';
-        warnHolder.appendChild(warning);
-        warnBox.appendChild(warnHolder);
     }
     function checkEmail(emailId, warnId, fieldName) {
         var emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         var email = document.getElementById(emailId);
         var emailValue = email.value;
 
-        var warnBox = document.getElementById(warnId);
-        var warnHolder = document.createElement('div');
-        warnHolder.className = 'warn-holder';
-        var warning;
-
         if (emailPattern.test(emailValue)) {
-            warning = '';
+            cleanWarning(warnId);
+            document.emailIsGood = true;
         } else {
-            warning = document.createTextNode(fieldName + 'must be written like this: mytestemail@website.com');
-            emailId.value = '';
+            printWarning(email, warnId, fieldName + ' must be written like this: mytestemail@website.com');
+            document.emailIsGood = false;
         }
 
-        warnBox.innerHTML = '';
-        warnHolder.appendChild(warning);
-        warnBox.appendChild(warnHolder);
+        enableButton();
     }
     function checkUsername(usernameId, warnId, fieldName) {
 
@@ -111,74 +118,79 @@
         var username = document.getElementById(usernameId);
         var usernameValue = username.value;
 
-        var warnBox = document.getElementById(warnId);
-        var warnHolder = document.createElement("div");
-        warnHolder.className = 'warn-holder';
-        var warning;
-
         if (usernameValue.length < 2 || usernameValue.length > 45) { // not longer enough/too long
-            warning = document.createTextNode(fieldName + 'must be at least 2 characters and less than 45');
-            usernameId.value = '';
+            printWarning(username, warnId, fieldName + ' must be at least 2 characters and less than 45');
+            document.usernameIsGood = false;
         } else if (badCharacterPattern.test(usernameValue)) { // has illegal characters
-            warning = document.createTextNode(fieldName + ' must only include these characters: A-Z, 0-9, \'_\', or \'.\'');
-            usernameId.value = ''
+            printWarning(username, warnId, fieldName + ' must only include these characters: A-Z, 0-9, \'_\', or \'.\'');
+            document.usernameIsGood = false;
         } else if (badOrderPattern.test(usernameValue)) {
-            warning = document.createTextNode(fieldName + 'cannot begin or end with \'_\' or \'.\'');
-            usernameId.value = '';
+            printWarning(username, warnId, fieldName + ' cannot begin or end with \'_\' or \'.\'');
+            document.usernameIsGood = false;
         } else if (usernamePattern.test(usernameValue)) { // perfect!
-            warning = '';
+            cleanWarning(warnId);
+            document.usernameIsGood = true;
         } else {
-            warning = document.createTextNode(fieldName + " has experience an unknown error. Please contact Sarah.")
+            warning = document.createTextNode(fieldName + " has experience an unknown error. Please contact Sarah.");
+            document.usernameIsGood = false;
         }
 
         warnBox.innerHTML = '';
         warnHolder.appendChild(warning);
         warnBox.appendChild(warnHolder);
+
+        enableButton();
     }
     function checkPassword(passwordId, warnId, fieldName) {
 
         var password = document.getElementById(passwordId);
         var passwordValue = password.value;
 
-        var warnBox = document.getElementById(warnId);
-        var warnHolder = document.createElement("div");
-        warnHolder.className = 'warn-holder';
-        var warning;
-
         if (passwordValue.length < 6 || passwordValue.length > 20) {
-            warning = document.createTextNode(fieldName + ' must be between 6 and 20 characters long.');
-            passwordId.value = '';
+            printWarning(password, warnId, fieldName + ' must be between 6 and 20 characters long.');
+            document.passwordIsGood = false;
         } else if (passwordValue.length >= 6 && passwordValue.length <= 20) {
-            warning = '';
+            cleanWarning(warnId);
+            document.passwordIsGood = true;
         } else {
-            warning = document.createTextNode(fieldName + " has experience an unknown error. Please contact Sarah.")
+            printWarning(password, warnId, fieldName + ' has experience an unknown error. Please contact Sarah.');
+            document.passwordIsGood = false;
         }
 
-        warnBox.innerHTML = '';
-        warnHolder.appendChild(warning);
-        warnBox.appendChild(warnHolder);
+        enableButton();
     }
     function checkMatchingPassword(firstPasswordId, secondPasswordId, warnId, fieldName) {
 
         var firstPassword = document.getElementById(firstPasswordId);
         var firstPasswordValue = firstPassword.value;
 
-        var secondPassword = document.getElementById(secondPasswordId)
+        var secondPassword = document.getElementById(secondPasswordId);
         var secondPasswordValue = secondPassword.value;
 
-        var warnBox = document.getElementById(warnId);
-        var warnHolder = document.createElement("div");
-        warnHolder.className = 'warn-holder';
-        var warning;
-
         if (firstPasswordValue === secondPasswordValue) {
-            warning = '';
+            cleanWarning(warnId);
+            document.confirmPasswordIsGood = true;
         } else {
-            warning = document.createTextNode(fieldName + ' must match.');
+            printWarning(secondPassword, warnId, fieldName + ' must match.');
+            document.confirmPasswordIsGood = false;
         }
 
+        enableButton();
+    }
+
+    function cleanWarning(warnId) {
+        var warnBox = document.getElementById(warnId);
         warnBox.innerHTML = '';
-        warnHolder.appendChild(warning);
+    }
+    function printWarning(inputFieldId, warnId, warningText) {
+        var warnBox = document.getElementById(warnId);
+        var warnHolder = document.createElement("div");
+
+        warningText = document.createTextNode(warningText);
+        inputFieldId.value = '';
+        warnHolder.className = 'warn-holder';
+        warnBox.innerHTML = '';
+        warnHolder.appendChild(warningText);
         warnBox.appendChild(warnHolder);
     }
 </script>
