@@ -15,8 +15,7 @@
             <a href="${pageContext.request.contextPath}/species">Species</a>
             <a href="${pageContext.request.contextPath}/admin">Admin</a>
         </div>
-        <p>
-        <form action="/species/added" method="post">
+        <form action="${pageContext.request.contextPath}/admin/speciesAdded" method="post">
             <div class="form-item">
                 <div class="form-label">Species Name</div>
                 <input title="Species Name" type="text" name="speciesname" />
@@ -64,7 +63,6 @@
             </div>
             <input type="submit" name="Add Species"/>
         </form>
-        </p>
     </div>
 </div>
 </body>

@@ -23,6 +23,7 @@ public class SpeciesEntity {
     private String habitat;
     private String description;
     private BigDecimal price;
+    private String size;
 
     @Id
     @Column(name = "speciesid", nullable = false)
@@ -134,6 +135,16 @@ public class SpeciesEntity {
         this.price = price;
     }
 
+    @Basic
+    @Column(name = "size", nullable = false, length = 45)
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -153,6 +164,7 @@ public class SpeciesEntity {
         if (habitat != null ? !habitat.equals(that.habitat) : that.habitat != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (price != null ? !price.equals(that.price) : that.price != null) return false;
+        if (size != null ? !size.equals(that.size) : that.size != null) return false;
 
         return true;
     }
