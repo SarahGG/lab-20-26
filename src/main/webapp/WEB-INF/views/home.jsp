@@ -18,9 +18,10 @@
     <div class="col-2 flav flav-1"></div><div class="col-2 flav flav-2"></div><div class="col-2 flav flav-3"></div><div class="col-2 flav flav-4"></div><div class="col-2 flav flav-5"></div><div class="col-1 flav flav-6"></div>
     <div class="page-guts">
         <div class="menu">
-            <a href="/">Home</a>
-            <a href="species">Species</a>
-            <a href="species/add">Add a Species</a>
+            <a href="${pageContext.request.contextPath}">Home</a>
+            <a href="${pageContext.request.contextPath}/species">Species</a>
+            <a href="${pageContext.request.contextPath}/admin">Admin</a>
+            <a href="${pageContext.request.contextPath}/species/add">Add a Species</a>
         </div>
         <p>
             ${usergreeting}

@@ -1,6 +1,7 @@
 package com.grandcircus.spring.models;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * Class description
@@ -21,6 +22,7 @@ public class SpeciesEntity {
     private String region;
     private String habitat;
     private String description;
+    private BigDecimal price;
 
     @Id
     @Column(name = "speciesid", nullable = false)
@@ -93,7 +95,7 @@ public class SpeciesEntity {
     }
 
     @Basic
-    @Column(name = "region", nullable = false, length = 45)
+    @Column(name = "region", nullable = false, length = -1)
     public String getRegion() {
         return region;
     }
@@ -113,13 +115,23 @@ public class SpeciesEntity {
     }
 
     @Basic
-    @Column(name = "description", nullable = false, length = 45)
+    @Column(name = "description", nullable = false, length = -1)
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Basic
+    @Column(name = "price", nullable = false, precision = 2)
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     @Override
@@ -130,9 +142,9 @@ public class SpeciesEntity {
         SpeciesEntity that = (SpeciesEntity) o;
 
         if (speciesid != that.speciesid) return false;
-        if (temps != that.temps) return false;
         if (speciesname != null ? !speciesname.equals(that.speciesname) : that.speciesname != null) return false;
         if (picturelink != null ? !picturelink.equals(that.picturelink) : that.picturelink != null) return false;
+        if (temps != null ? !temps.equals(that.temps) : that.temps != null) return false;
         if (humidity != null ? !humidity.equals(that.humidity) : that.humidity != null) return false;
         if (diet != null ? !diet.equals(that.diet) : that.diet != null) return false;
         if (experiencelevel != null ? !experiencelevel.equals(that.experiencelevel) : that.experiencelevel != null)
@@ -140,6 +152,7 @@ public class SpeciesEntity {
         if (region != null ? !region.equals(that.region) : that.region != null) return false;
         if (habitat != null ? !habitat.equals(that.habitat) : that.habitat != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (price != null ? !price.equals(that.price) : that.price != null) return false;
 
         return true;
     }
@@ -156,6 +169,7 @@ public class SpeciesEntity {
         result = 31 * result + (region != null ? region.hashCode() : 0);
         result = 31 * result + (habitat != null ? habitat.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
         return result;
     }
 }

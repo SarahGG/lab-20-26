@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /**
@@ -29,31 +30,24 @@ public class HomeController {
     // maps the home.jsp file to be rendered as an html page with target path of /jdbcTestPAge
     @RequestMapping(value = "/")
     public String home() {
-//        Configuration homeConfigurationObject = new Configuration().configure("hibernate.cfg.xml");
-//        SessionFactory homeSessionFactory = homeConfigurationObject.buildSessionFactory();
-//        Session homeSession = homeSessionFactory.openSession();
-//        homeSession.beginTransaction();
-//        Criteria homeCriteria = homeSession.createCriteria(ProductEntity.class);
-//        ArrayList<ProductEntity> productList = (ArrayList<ProductEntity>) homeCriteria.list();
-//        model.addAttribute("productListEL", productList);
-//        Criteria usersCriteria = homeSession.createCriteria(UsersEntity.class);
-//        ArrayList<UsersEntity> usersList = (ArrayList<UsersEntity>) usersCriteria.list();
-//        model.addAttribute("usersListEL", usersList);
+    return "home";
+    }
 
-        return "home";
+    @RequestMapping(value="/admin")
+    public ModelAndView adminPage() {
+        ArrayList<SpeciesEntity> speciesList = loadSpeciesList();
+        return new ModelAndView("admin", "speciesListEL", speciesList);
     }
 
     @RequestMapping(value="/species")
     public ModelAndView species() {
-        Configuration speciesConfigurationObject = new Configuration().configure("hibernate.cfg.xml");
-        SessionFactory speciesSessionFactory = speciesConfigurationObject.buildSessionFactory();
-        Session speciesSession = speciesSessionFactory.openSession();
-        speciesSession.beginTransaction();
-
-        Criteria speciesCriteria = speciesSession.createCriteria(SpeciesEntity.class);
-        ArrayList<SpeciesEntity> speciesList = (ArrayList<SpeciesEntity>) speciesCriteria.list();
-
+        ArrayList<SpeciesEntity> speciesList = loadSpeciesList();
         return new ModelAndView("species", "speciesListEL", speciesList);
+    }
+
+    @RequestMapping(value="/species/action=editSpecies")
+    public String editSpecies() {
+        return "editSpecies";
     }
 
     @RequestMapping(value = "/species/add", method = RequestMethod.GET)
@@ -66,6 +60,7 @@ public class HomeController {
                             @RequestParam("picturelink") String pictureLink,
                             @RequestParam("temps") String temps,
                             @RequestParam("humidity") String humidity,
+                            @RequestParam("price") BigDecimal price,
                             @RequestParam("diet") String diet,
                             @RequestParam("experiencelevel") String experienceLevel,
                             @RequestParam("region") String region,
@@ -83,6 +78,7 @@ public class HomeController {
         newSpecies.setPicturelink(pictureLink);
         newSpecies.setTemps(temps);
         newSpecies.setHumidity(humidity);
+        newSpecies.setPrice(price);
         newSpecies.setDiet(diet);
         newSpecies.setExperiencelevel(experienceLevel);
         newSpecies.setRegion(region);
@@ -109,6 +105,8 @@ public class HomeController {
     public String userAdded(@RequestParam("fName") String fName,
                             @RequestParam("lName") String lName,
                             @RequestParam("username") String username,
+                            @RequestParam("email") String email,
+                            @RequestParam("firstPassword") String password,
                             Model model) {
         Configuration registerConfigurationObject = new Configuration().configure("hibernate.cfg.xml");
         SessionFactory registerSessionFactory = registerConfigurationObject.buildSessionFactory();
@@ -120,6 +118,8 @@ public class HomeController {
         newUser.setFname(fName);
         newUser.setLname(lName);
         newUser.setUsername(username);
+        newUser.setEmail(email);
+        newUser.setPassword(password);
 
         model.addAttribute("usergreeting", "Hello, " + username + "<br />");
 
@@ -130,7 +130,7 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping("/species/deleted")
+    @RequestMapping("/admin/action=deleteSpecies")
     public ModelAndView deleteSpecies(@RequestParam("id") String deleteThisId) {
         // temp product entity object will store information that we want to delete
         SpeciesEntity deletedSpecies = new SpeciesEntity();
@@ -148,7 +148,17 @@ public class HomeController {
         Criteria speciesCriteria = speciesSession.createCriteria(SpeciesEntity.class);
         ArrayList<SpeciesEntity> speciesList = (ArrayList<SpeciesEntity>) speciesCriteria.list();
 
-        return new ModelAndView("species", "speciesListEL", speciesList);
+        return new ModelAndView("admin", "speciesListEL", speciesList);
     }
 
+    public static ArrayList<SpeciesEntity> loadSpeciesList() {
+        Configuration speciesConfigurationObject = new Configuration().configure("hibernate.cfg.xml");
+        SessionFactory speciesSessionFactory = speciesConfigurationObject.buildSessionFactory();
+        Session speciesSession = speciesSessionFactory.openSession();
+        speciesSession.beginTransaction();
+
+        Criteria speciesCriteria = speciesSession.createCriteria(SpeciesEntity.class);
+        ArrayList<SpeciesEntity> speciesList = (ArrayList<SpeciesEntity>) speciesCriteria.list();
+        return speciesList;
+    }
 }

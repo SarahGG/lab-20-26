@@ -125,3 +125,11 @@ fieldset input {
     border: 0;
     margin-bottom: 1px;
 }
+
+.form-item {
+    padding: 2px;
+}
+.form-label {
+    display: inline-block;
+    width: 160px;
+}

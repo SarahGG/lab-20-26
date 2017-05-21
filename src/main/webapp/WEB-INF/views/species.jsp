@@ -18,9 +18,10 @@
     <div class="col-2 flav flav-1"></div><div class="col-2 flav flav-2"></div><div class="col-2 flav flav-3"></div><div class="col-2 flav flav-4"></div><div class="col-2 flav flav-5"></div><div class="col-1 flav flav-6"></div>
     <div class="page-guts">
         <div class="menu">
-            <a href="/">Home</a>
-            <a href="">Species</a>
-            <a href="species/add">Add a Species</a>
+            <a href="${pageContext.request.contextPath}">Home</a>
+            <a href="${pageContext.request.contextPath}/species">Species</a>
+            <a href="${pageContext.request.contextPath}/admin">Admin</a>
+            <a href="${pageContext.request.contextPath}/species/add">Add a Species</a>
         </div>
         <div class="item-holder">
             <c:forEach var="thisSpecies" items="${speciesListEL}">
@@ -29,6 +30,7 @@
                          style="background-image: url('${thisSpecies.picturelink}');">
                         <div class="item-name">${thisSpecies.speciesname}</div>
                     </div>
+                    <div class="item-price">${thisSpecies.price}</div>
                     <div class="item-desc">
                             ${thisSpecies.description}
                     </div>
@@ -42,8 +44,6 @@
                     <h3>In The Wild</h3>
                     <b>Native Region:</b> ${thisSpecies.region}<br />
                     <b>Habitat:</b> ${thisSpecies.habitat}
-
-                    <div class="item-delete"><a href="/species/deleted?id=${thisSpecies.speciesid}">[delete this product]</a></div>
                 </div>
             </c:forEach>
         </div>

@@ -11,42 +11,65 @@
     <div class="col-2 flav flav-1"></div><div class="col-2 flav flav-2"></div><div class="col-2 flav flav-3"></div><div class="col-2 flav flav-4"></div><div class="col-2 flav flav-5"></div><div class="col-1 flav flav-6"></div>
     <div class="page-guts">
         <div class="menu">
-            <a href="/">Home</a>
-            <a href="species">Species</a>
-            <a href="species/add">Add a Species</a>
+            <a href="${pageContext.request.contextPath}">Home</a>
+            <a href="${pageContext.request.contextPath}/species">Species</a>
+            <a href="${pageContext.request.contextPath}/admin">Admin</a>
+            <a href="${pageContext.request.contextPath}/species/add">Add a Species</a>
         </div>
         <form name="userForm" action="/user" method="post">
-            First Name: <input title="First Name"
-                               type="text"
-                               id="fName"
-                               name="fName"
-                               onchange="checkName('fName', 'fNameWarn', 'First name')" /><br />
+            <div class="form-item">
+                <div class="form-label">First Name</div>
+                <input title="First Name"
+                       type="text"
+                       id="fName"
+                       name="fName"
+                       onchange="checkName('fName', 'fNameWarn', 'First name')" />
+            </div>
             <div id="fNameWarn" class="warn-box"></div>
-            Last Name: <input title="Last Name"
-                              type="text"
-                              id="lName"
-                              name="lName"
-                              onchange="checkName('lName', 'lNameWarn', 'Last name')" /><br />
+            <div class="form-item">
+                <div class="form-label">Last Name</div>
+                <input title="Last Name"
+                       type="text"
+                       id="lName"
+                       name="lName"
+                       onchange="checkName('lName', 'lNameWarn', 'Last name')" />
+            </div>
             <div id="lNameWarn" class="warn-box"></div>
-            Email: <input title="Email"
-                          id="email"
-                          type="email"
-                          name="email" onchange="checkEmail('email', 'emailWarn', 'Email')"><br />
+            <div class="form-item">
+                <div class="form-label">Email</div>
+                <input title="Email"
+                       id="email"
+                       type="email"
+                       name="email"
+                       onchange="checkEmail('email', 'emailWarn', 'Email')">
+            </div>
             <div id="emailWarn" class="warn-box"></div>
-            Username: <input title="Username"
-                             id="username"
-                             type="text"
-                             name="username" onchange="checkUsername('username', 'usernameWarn', 'Username')"><br />
+            <div class="form-item">
+                <div class="form-label">Username</div>
+                <input title="Username"
+                       id="username"
+                       type="text"
+                       name="username"
+                       onchange="checkUsername('username', 'usernameWarn', 'Username')" />
+            </div>
             <div id="usernameWarn" class="warn-box"></div>
-            Password: <input title="Password"
-                             id="firstPassword"
-                             type="password"
-                             name="firstPassword" onchange="checkPassword('firstPassword', 'firstPasswordWarn', 'Password')"><br />
+            <div class="form-item">
+                <div class="form-label">Password</div>
+                <input title="Password"
+                       id="firstPassword"
+                       type="password"
+                       name="firstPassword"
+                       onchange="checkPassword('firstPassword', 'firstPasswordWarn', 'Password')" />
+            </div>
             <div id="firstPasswordWarn" class="warn-box"></div>
-            Confirm Password: <input title="Password"
-                                     id="secondPassword"
-                                     type="password"
-                                     name="secondPassword" onchange="checkMatchingPassword('firstPassword', 'secondPassword', 'secondPasswordWarn', 'Passwords')"><br />
+            <div class="form-item">
+                <div class="form-label">Confirm Password</div>
+                <input title="Password"
+                       id="secondPassword"
+                       type="password"
+                       name="secondPassword"
+                       onchange="checkMatchingPassword('firstPassword', 'secondPassword', 'secondPasswordWarn', 'Passwords')">
+            </div>
             <div id="secondPasswordWarn" class="warn-box"></div>
             <input type="submit" id="registerButton" name="Register" disabled />
         </form>
