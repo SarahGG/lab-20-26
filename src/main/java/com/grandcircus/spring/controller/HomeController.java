@@ -50,7 +50,7 @@ public class HomeController {
         return "editSpecies";
     }
 
-    @RequestMapping(value = "/species/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/addSpecies", method = RequestMethod.GET)
     public String addSpecies() {
         return "addSpecies";
     }

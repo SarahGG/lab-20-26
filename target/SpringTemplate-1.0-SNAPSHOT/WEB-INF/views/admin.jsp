@@ -21,7 +21,6 @@
             <a href="${pageContext.request.contextPath}">Home</a>
             <a href="${pageContext.request.contextPath}/species">Species</a>
             <a href="${pageContext.request.contextPath}/admin">Admin</a>
-            <a href="${pageContext.request.contextPath}/species/add">Add a Species</a>
         </div>
         <table>
             <c:forEach var="thisSpecies" items="${speciesListEL}">
@@ -30,14 +29,16 @@
                             ${thisSpecies.speciesname}
                     </td>
                     <td>
-                        [edit]
+                        <a href="${pageContext.request.contextPath}/admin/action=editSpecies?id=${thisSpecies.speciesid}">[edit]</a>
                     </td>
                     <td>
-                        <a href="/admin/action=deleteSpecies?id=${thisSpecies.speciesid}">[delete]</a>
+                        <a href="${pageContext.request.contextPath}/admin/action=deleteSpecies?id=${thisSpecies.speciesid}">[delete]</a>
                     </td>
                 </tr>
             </c:forEach>
         </table>
+
+        <a href="${pageContext.request.contextPath}/admin/addSpecies">[Add A Species]</a>
     </div>
 </div>
 </body>

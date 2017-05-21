@@ -14,7 +14,6 @@
             <a href="${pageContext.request.contextPath}">Home</a>
             <a href="${pageContext.request.contextPath}/species">Species</a>
             <a href="${pageContext.request.contextPath}/admin">Admin</a>
-            <a href="${pageContext.request.contextPath}/species/add">Add a Species</a>
         </div>
         <p>
         <form action="/species/added" method="post">
